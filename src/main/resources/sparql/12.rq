@@ -1,0 +1,21 @@
+#CQ12 - What are the major adverse reactions ?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX pcdo: <http://sbmi.uth.edu/ontology/pcdo#>
+
+
+SELECT DISTINCT ?idrug ?serious ?signs
+	WHERE { 
+	?idrug rdf:type pcdo:Drug .
+	?idrug pcdo:may_cause ?serious .
+	?serious rdf:type pcdo:Serious_Reaction .
+	?serious pcdo:has_signs ?signs .
+	OPTIONAL{
+		?subclass rdfs:subClassOf* pcdo:Adverse_Drug_Reactions .
+		?serious rdf:type ?subclass .
+		?serious pcdo:has_signs ?signs .
+	}
+}

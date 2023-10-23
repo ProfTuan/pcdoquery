@@ -1,0 +1,15 @@
+#CQ20 - What is the common dosage of the medication?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX pcdo: <http://sbmi.uth.edu/ontology/pcdo#>
+
+
+SELECT DISTINCT ?idrug ?dosage_series ?dosing
+	WHERE { 
+	?idrug rdf:type pcdo:Drug .
+	OPTIONAL{?idrug pcdo:has_dosage_series ?dosage_series} .
+	OPTIONAL{?form pcdo:taken_in_the_form ?dosing}.
+}

@@ -1,0 +1,16 @@
+#CQ16 - What should I do if I overdoes on the medication?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX pcdo: <http://sbmi.uth.edu/ontology/pcdo#>
+
+
+SELECT DISTINCT ?idrug ?situation ?action
+	WHERE { 
+	?idrug rdf:type pcdo:Drug .
+	?sublclass rdfs:subClassOf* pcdo:Overdose_instruction .
+	?action rdf:type ?sublclass .
+	?situation pcdo:need_to_take_action ?action .
+}

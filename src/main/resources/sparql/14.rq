@@ -1,0 +1,17 @@
+#CQ14 - When do I need to seek medication attention with this medication?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX pcdo: <http://sbmi.uth.edu/ontology/pcdo#>
+
+
+SELECT DISTINCT ?symptom ?type ?attention
+	WHERE { 
+	?idrug rdf:type pcdo:Drug .
+	?attention rdf:type pcdo:Emergency_Action .
+	?symptom pcdo:need_to_take_action ?attention .
+	?symptom rdf:type ?type .
+	FILTER (?type NOT IN (owl:NamedIndividual))
+}

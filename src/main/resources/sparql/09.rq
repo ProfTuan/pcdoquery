@@ -1,0 +1,17 @@
+#CQ9 - Is there any special handling or storage of the medication?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX pcdo: <http://sbmi.uth.edu/ontology/pcdo#>
+
+
+SELECT DISTINCT ?idrug ?handling 
+	WHERE { 
+	?idrug rdf:type pcdo:Drug .
+	?idrug pcdo:has_special_instructions ?foodinstruction .
+	?handling rdf:type pcdo:Handling_Instruction .
+	?subclass rdfs:subClassOf* pcdo:Storage_instruction .
+	OPTIONAL {?handling rdf:type ?subclass}.
+}

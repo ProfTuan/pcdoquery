@@ -1,0 +1,17 @@
+#CQ19 - Should I be worried if I have chest pains after taking the medication
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX pcdo: <http://sbmi.uth.edu/ontology/pcdo#>
+
+
+SELECT DISTINCT ?idrug ?signs ?reaction ?action
+	WHERE { 
+	?idrug rdf:type pcdo:Drug .
+	?idrug pcdo:may_cause ?reaction .
+	?reaction pcdo:has_signs ?signs .
+	FILTER (regex(str(?signs), "chest", "i") && regex(str(?signs), "pain", "i")) .
+	?signs pcdo:need_to_take_action ?action
+}

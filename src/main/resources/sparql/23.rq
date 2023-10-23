@@ -1,0 +1,17 @@
+#CQ23 - Is there any food interaction with the medication?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX pcdo: <http://sbmi.uth.edu/ontology/pcdo#>
+
+
+SELECT DISTINCT ?idrug ?combo ?food
+	WHERE { 
+	?idrug rdf:type pcdo:Drug .
+	?idrug pcdo:avoid_taking_with ?combo .
+	?subclass rdfs:subClassOf* pcdo:Drug-Food_Combination .
+	?combo rdf:type ?subclass .
+	?combo pcdo:has_drug_interactions_with ?food .
+}
